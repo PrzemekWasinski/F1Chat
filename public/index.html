@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="navBar">
+        <!--User search-->
+        <div id="searchContainer">
+            <input id="userSearch" placeholder="Search for users...">
+            <button id="userSearchButton">Search</button>
+        </div>
+        <!--Navigation buttons-->
+        <button id="homePageButton">Home</button>
+        <button id="seasonsButton">Seasons</button>
+        <button id="loginPageButton">Login</button>
+        <button id="logOutButton">Log Out</button>
+    </div>
+
+    <!--Home page-->
+    <template id="homeTemplate">
+        <div class="home-content">
+            <div class="home-header">
+                <div class="left-section">
+                    <h2>Home Page</h2>
+                    <div class="search-container">
+                        <input id="postSearch" placeholder="Search for posts...">
+                        <button id="postSearchButton" class="f1-button">Search</button>
+                    </div>
+                </div>
+                <div class="right-section">
+                    <button id="followedPostsToggle" class="f1-button">Show Followed Users' Posts</button>
+                </div>
+            </div>
+    
+            <button id="uploadButton" class="f1-button" style="display: none">Upload Post</button>
+            <!--Upload form popup-->
+            <div id="uploadPopup" class="popup" style="display: none;">
+                <div class="popup-content">
+                    <span class="close" id="closeUploadPopup">&times;</span>
+                    <form id="uploadForm">  
+                        <h3>Create New Post</h3>
+                        <input type="text" id="title" placeholder="Title" required>
+                        <textarea id="description" placeholder="Description" required></textarea>
+                        <input type="file" name="uploadFile" />
+                        <input type="submit" value="Upload!" class="f1-button" />
+                    </form>
+                </div>
+            </div>
+            
+            <div id="posts-container"></div>
+            <div id="uploadedItems"></div>
+        </div>
+    </template>
+
+    <!--Register Page-->
+    <template id="registerTemplate">
+        <div class="register-container">
+            <h2>Register</h2>
+            <div class="register-form">
+                <div class="input-section">
+                    <input id="registerUsername" type="text" placeholder="Username">
+                    <input id="registerPassword" type="password" placeholder="Password">
+                    <input id="confirmPassword" type="password" placeholder="Confirm Password">
+                </div>
+                <!--Selecting a team-->
+                <div class="team-selection">
+                    <h3>Select Your Team</h3>
+                    <div class="team-grid">
+                        <label class="team-option redbull">
+                            <input type="radio" name="team" value="Red Bull">
+                            <span class="team-name">Red Bull</span>
+                        </label>
+    
+                        <label class="team-option ferrari">
+                            <input type="radio" name="team" value="Ferrari">
+                            <span class="team-name">Ferrari</span>
+                        </label>
+    
+                        <label class="team-option mclaren">
+                            <input type="radio" name="team" value="McLaren">
+                            <span class="team-name">McLaren</span>
+                        </label>
+    
+                        <label class="team-option mercedes">
+                            <input type="radio" name="team" value="Mercedes">
+                            <span class="team-name">Mercedes</span>
+                        </label>
+    
+                        <label class="team-option astonmartin">
+                            <input type="radio" name="team" value="Aston Martin">
+                            <span class="team-name">Aston Martin</span>
+                        </label>
+    
+                        <label class="team-option alpine">
+                            <input type="radio" name="team" value="Alpine F1 Team">
+                            <span class="team-name">Alpine</span>
+                        </label>
+    
+                        <label class="team-option haas">
+                            <input type="radio" name="team" value="Haas F1 Team">
+                            <span class="team-name">Haas</span>
+                        </label>
+    
+                        <label class="team-option rb">
+                            <input type="radio" name="team" value="RB F1 Team">
+                            <span class="team-name">RB</span>
+                        </label>
+    
+                        <label class="team-option williams">
+                            <input type="radio" name="team" value="Williams">
+                            <span class="team-name">Williams</span>
+                        </label>
+    
+                        <label class="team-option sauber">
+                            <input type="radio" name="team" value="Sauber">
+                            <span class="team-name">Sauber</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Register Button-->
+        <button id="registerButton">Register</button>
+        <p id="registerErrorMessage"></p>
+    </template>
+
+
+    <!--Login page-->
+    <template id="loginTemplate">
+        <div class="login-container">
+            <h2>Login</h2>
+            <div class="login-form">
+                <input id="loginUsername" type="text" placeholder="Username">
+                <input id="loginPassword" type="password" placeholder="Password">
+                <button id="loginButton" class="f1-button">Login</button>
+                <button id="loginRegisterPageButton" class="f1-button">Register</button>
+                <p id="loginErrorMessage"></p>
+            </div>
+        </div>
+    </template>
+
+    <!--Profile page contents will be added here-->
+    <template id="profileTemplate">
+
+    </template>
+
+    <!--Pages will be loaded here-->
+    <div id="content">
+
+    </div>
+
+    <script type="module" src="./JavaScript/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1460 @@
+@font-face { /* Font for the buttons */
+    font-family: "speeday";
+    src: url("./assets/speeday-bold.ttf") format("truetype");
+}
+
+@font-face {  /* Font for posts */
+    font-family: "helvetica";
+    src: url("./assets/helvetica.ttf") format("truetype");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.5s;
+}
+
+/* Navigation bar */
+#navBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: #121212;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+#homePageButton,
+#seasonsButton {
+    margin-right: 1rem;
+    order: 1;
+}
+
+/* User search */
+#searchContainer {
+    display: flex;
+    align-items: center;
+    flex: 0 1 400px;
+    order: 2;
+    margin: 0 auto;
+}
+
+#userSearch {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    width: 100%;
+    font-size: 0.9rem;
+    background-color: #1f1f1f;
+    color: #ffffff;
+    border: 1px solid #333;
+    font-weight: 300;
+}
+
+#userSearch::placeholder {
+    color: #888;
+    font-weight: 300;
+}
+
+#userSearch:focus {
+    outline: none;
+    border-color: #e10600;
+}
+
+#userSearchButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    background-color: #1f1f1f;
+    color: white;
+    cursor: pointer;
+    border: 1px solid #333;
+    border-left: none;
+    min-width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+#userSearchButton:hover {
+    background-color: #2a2a2a;
+}
+
+
+#loginPageButton,
+#logOutButton {
+    margin-left: 1rem;
+    order: 3;
+}
+
+/* Styling navigation bar button */
+#navBar button {
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 3px;
+    background-color: #1f1f1f;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-weight: 400;  
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;  
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #333;
+    font-family: "speeday";
+}
+
+#navBar button:hover {
+    background-color: #2a2a2a;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(225, 6, 0, 0.1);
+    border-color: #e10600;
+}
+
+#navBar button:active {
+    transform: translateY(0);
+}
+
+#navBar button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #e10600;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: right;
+}
+
+#navBar button:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+@media (max-width: 768px) {
+    #navBar {
+        flex-wrap: wrap;
+        padding: 0.5rem;
+    }
+
+    #searchContainer {
+        order: 3;
+        flex-basis: 100%;
+        margin: 0.5rem 0;
+    }
+
+    #homePageButton,
+    #seasonsButton,
+    #loginPageButton,
+    #logOutButton {
+        margin: 0.25rem;
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+
+/* Displaying posts */
+.post-footer {
+    margin-top: 10px;
+    color: #666;
+    font-family: "Helvetica", sans-serif;
+}
+
+.post {
+    width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    font-family: "Helvetica", sans-serif;
+}
+
+.post-image {
+    width: 570px;
+    height: auto;
+    object-fit: contain;
+    margin: 0;
+    border-radius: 4px;
+    display: block;
+}
+
+.post-video {
+    width: 570px;
+    height: auto;
+    margin: 0;
+    border-radius: 4px;
+    display: block;
+}
+
+.media-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    overflow: hidden;
+    width: 570px;
+    max-height: 800px;
+}
+
+.posts-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1850px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: "Helvetica", sans-serif;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    position: relative;
+    font-family: "Helvetica", sans-serif;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: "Helvetica", sans-serif;
+}
+
+.close-modal:hover {
+    color: black;
+}
+
+@media (max-width: 650px) {
+    .post {
+        width: 100%;
+        margin: 20px 0;
+        padding: 10px;
+    }
+
+    .post-image,
+    .post-video,
+    .media-container {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Displaying user profiles */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.profile-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+}
+
+/* Follow button */
+#followButton {
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 3px;
+    background-color: #1f1f1f;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #333;
+    font-family: "speeday";
+}
+
+#followButton:hover {
+    background-color: #2a2a2a;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(225, 6, 0, 0.1);
+    border-color: #e10600;
+}
+
+#followButton:active {
+    transform: translateY(0);
+}
+
+#followButton::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #e10600;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: right;
+}
+
+#followButton:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.posts-section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.posts-section h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+}
+
+/* User posts */
+.post {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.post:last-child {
+    margin-bottom: 0;
+}
+
+.post-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.post-content small {
+    color: #666;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.post-title {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+}
+
+.post-description {
+    margin: 0;
+    color: #444;
+    line-height: 1.5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.post-media {
+    margin: 10px 0;
+}
+
+.post-image-container, .post-video-container {
+    border-radius: 8px;
+    overflow: hidden;
+    max-height: 500px;
+}
+
+.post-image, .post-video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    max-height: 500px;
+}
+
+.post-footer {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.post-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.like-btn, .comment-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.like-btn:hover {
+    background-color: #ffeded;
+    color: #e10600;
+}
+
+.comment-btn:hover {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.like-btn.liked {
+    background-color: #e10600;
+    color: white;
+}
+
+.like-btn.liked:hover {
+    background-color: #c10500;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 10px;
+    }
+
+    .profile-header {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .profile-header h2 {
+        font-size: 20px;
+    }
+
+    .post {
+        padding: 15px;
+    }
+
+    .post-actions {
+        flex-wrap: wrap;
+    }
+}
+
+.comments-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 10px 0;
+}
+
+.comments-list .comment {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.new-comment-section {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#newCommentInput {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#submitComment {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#submitComment:hover {
+    background-color: #45a049;
+}
+
+
+
+.home-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'speeday', helvetica, Arial, sans-serif;
+}
+
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.left-section h2 {
+    margin: 0;
+    color: #15151E;
+    font-size: 24px;
+    font-family: 'speeday', sans-serif;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+}
+
+#postSearch {
+    padding: 8px 15px;
+    border: 2px solid #15151E;
+    border-radius: 4px;
+    width: 300px;
+    font-size: 14px;
+    font-family: 'speeday', sans-serif;
+}
+
+#postSearch:focus {
+    outline: none;
+    border-color: #E10600;
+}
+
+/* F1-themed button styling */
+.f1-button {
+    font-family: 'speeday', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    background-color: #15151E;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    padding: 10px 20px;
+    transition: transform 0.3s ease;
+}
+
+.f1-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(225, 6, 0, 0.4),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.f1-button:hover {
+    transform: translateY(-2px);
+}
+
+.f1-button:hover::before {
+    left: 100%;
+}
+
+.f1-button:active {
+    transform: translateY(1px);
+}
+
+#postSearchButton,
+#followedPostsToggle,
+#uploadButton {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+/* Upload popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #15151E;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #E10600;
+}
+
+#uploadForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#uploadForm h3 {
+    margin: 0 0 15px 0;
+    color: #15151E;
+    font-family: 'helvetica', sans-serif;
+    text-transform: uppercase;
+}
+
+#uploadForm input[type="text"],
+#uploadForm textarea {
+    padding: 10px;
+    border: 2px solid #15151E;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'helvetica', sans-serif;
+}
+
+#uploadForm input[type="text"]:focus,
+#uploadForm textarea:focus {
+    outline: none;
+    border-color: #E10600;
+}
+
+#uploadForm textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* File input */
+#uploadForm input[type="file"] {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #15151E;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+#uploadForm input[type="file"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(225, 6, 0, 0.4),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+#uploadForm input[type="file"]:hover::before {
+    left: 100%;
+}
+
+#uploadForm input[type="file"]::file-selector-button {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #E10600;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+#uploadForm input[type="file"]::file-selector-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+#uploadForm input[type="file"]::file-selector-button:hover::before {
+    left: 100%;
+}
+
+/* Submit button */
+.f1-button {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #E10600;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.f1-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.f1-button:hover::before {
+    left: 100%;
+}
+
+@keyframes f1-button-shine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Login page */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    font-family: 'speeday', helvetica, Arial, sans-serif;
+}
+
+.login-container h2 {
+    text-align: center;
+    color: #15151E;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-form input {
+    padding: 12px 15px;
+    border: 2px solid #15151E;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'speeday', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #E10600;
+}
+
+.f1-button {
+    font-family: 'speeday', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    background-color: #15151E;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    padding: 12px 20px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.f1-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(225, 6, 0, 0.4),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.f1-button:hover {
+    transform: translateY(-2px);
+}
+
+.f1-button:hover::before {
+    left: 100%;
+}
+
+.f1-button:active {
+    transform: translateY(1px);
+}
+
+#loginErrorMessage {
+    color: #E10600;
+    text-align: center;
+    font-size: 14px;
+    margin: 0;
+    min-height: 20px;
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .login-form input,
+    .f1-button {
+        padding: 10px 15px;
+    }
+}
+
+@keyframes f1-button-shine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Register page */
+.register-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    font-family: 'speeday', helvetica, Arial, sans-serif;
+}
+
+.register-container h2 {
+    text-align: center;
+    color: #15151E;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-section input {
+    padding: 12px 15px;
+    border: 2px solid #15151E;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'speeday', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.input-section input:focus {
+    outline: none;
+    border-color: #E10600;
+}
+
+.team-selection {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.team-selection h3 {
+    color: #15151E;
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.team-option {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: 0.5s;
+}
+
+.team-option:hover::before {
+    left: 100%;
+}
+
+.team-option input[type="radio"] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.team-name {
+    font-size: 14px;
+    transition: color 0.3s ease;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+/* Team themes */
+.redbull {
+    background: linear-gradient(135deg, #1E41FF, #3671C6);
+    border: 2px solid #1E41FF;
+}
+
+.ferrari {
+    background: linear-gradient(135deg, #DC0000, #FF0000);
+    border: 2px solid #DC0000;
+}
+
+.mclaren {
+    background: linear-gradient(135deg, #FF8700, #FFA500);
+    border: 2px solid #FF8700;
+}
+
+.mercedes {
+    background: linear-gradient(135deg, #00A19C, #27F4D2);
+    border: 2px solid #00A19C;
+}
+
+.astonmartin {
+    background: linear-gradient(135deg, #006F62, #00594F);
+    border: 2px solid #006F62;
+}
+
+.alpine {
+    background: linear-gradient(135deg, #0090FF, #005BA9);
+    border: 2px solid #0090FF;
+}
+
+.haas {
+    background: linear-gradient(135deg, #FFFFFF, #B6BABD);
+    border: 2px solid #B6BABD;
+}
+
+.haas .team-name {
+    color: #15151E;
+}
+
+.rb {
+    background: linear-gradient(135deg, #1E5BC6, #00327D);
+    border: 2px solid #1E5BC6;
+}
+
+.williams {
+    background: linear-gradient(135deg, #005AFF, #00A0FF);
+    border: 2px solid #005AFF;
+}
+
+.sauber {
+    background: linear-gradient(135deg, #52E252, #00FF00);
+    border: 2px solid #52E252;
+}
+
+.team-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.team-option input[type="radio"]:checked + .team-name {
+    font-weight: bold;
+}
+
+/* Team hover effects */
+.redbull:hover { box-shadow: 0 4px 12px rgba(30, 65, 255, 0.3); }
+.ferrari:hover { box-shadow: 0 4px 12px rgba(220, 0, 0, 0.3); }
+.mclaren:hover { box-shadow: 0 4px 12px rgba(255, 135, 0, 0.3); }
+.mercedes:hover { box-shadow: 0 4px 12px rgba(0, 161, 156, 0.3); }
+.astonmartin:hover { box-shadow: 0 4px 12px rgba(0, 111, 98, 0.3); }
+.alpine:hover { box-shadow: 0 4px 12px rgba(0, 144, 255, 0.3); }
+.haas:hover { box-shadow: 0 4px 12px rgba(182, 186, 189, 0.3); }
+.rb:hover { box-shadow: 0 4px 12px rgba(30, 91, 198, 0.3); }
+.williams:hover { box-shadow: 0 4px 12px rgba(0, 90, 255, 0.3); }
+.sauber:hover { box-shadow: 0 4px 12px rgba(82, 226, 82, 0.3); }
+
+@media (max-width: 480px) {
+    .register-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .input-section input {
+        padding: 10px 15px;
+    }
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+#registerButton {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #E10600, #FF0000);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'speeday', helvetica, Arial, sans-serif;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+#registerButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: 0.5s;
+}
+
+#registerButton:hover::before {
+    left: 100%;
+    animation: shine 1s;
+}
+
+#registerButton:hover {
+    background: linear-gradient(135deg, #FF0000, #E10600);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
+}
+
+#registerButton:active {
+    transform: translateY(0);
+}
+
+/* Error message */
+#registerErrorMessage {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 4px;
+    font-family: 'speeday', helvetica, Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+    background-color: rgba(225, 6, 0, 0.1);
+    color: #E10600;
+    border: 1px solid rgba(225, 6, 0, 0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+#registerErrorMessage:not(:empty) {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    #registerButton {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    #registerErrorMessage {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
+
+/* Seasons page */
+#seasons-year {
+    background-color: #ffffff;
+    padding: 8px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 16px;
+    margin: 40px auto 5px auto;
+    width: 200px;
+    cursor: pointer;
+    display: block;
+}
+
+#seasons-year:focus {
+    outline: none;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+#seasons-container {
+    gap: 30px;
+    padding: 0 20px;
+}
+
+#seasons-drivers, #seasons-constructors {
+    background-color: #ffffff;
+    padding: 20px;
+    position: relative;
+}
+
+#seasons-drivers-title, #seasons-constructors-title {
+    font-family: 'speeday', sans-serif;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#seasons-drivers-list, #seasons-constructors-list {
+    max-height: calc((1.5 * 16px * 10) + (12px * 9));
+    overflow-y: auto;
+    padding: 10px 20px 10px 10px;
+    margin-right: -15px;
+}
+
+#seasons-drivers-list li, #seasons-constructors-list li {
+    height: calc(1.5 * 16px); 
+    margin-bottom: 12px;
+    border-radius: 5px;
+    font-family: 'Titillium Web', sans-serif;
+    color: #ffffff;
+    position: relative;
+    background: linear-gradient(145deg, #ededed, #ffffff);
+    box-shadow: 
+        -2px -2px 5px rgba(255, 255, 255, 1),
+        2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+#seasons-drivers-list::-webkit-scrollbar,
+#seasons-constructors-list::-webkit-scrollbar {
+    width: 12px;
+}
+
+#seasons-drivers-list::-webkit-scrollbar-track,
+#seasons-constructors-list::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+}
+
+#seasons-drivers-list::-webkit-scrollbar-thumb,
+#seasons-constructors-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    border: 3px solid #f0f0f0;
+}
+
+#seasons-drivers-list::-webkit-scrollbar-thumb:hover,
+#seasons-constructors-list::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+#seasons-drivers-list,
+#seasons-constructors-list {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f0f0f0;
+}
+
+#seasons-drivers-list li::before, 
+#seasons-constructors-list li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0) 45%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 55%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    transition: background-position 0.5s ease;
+    pointer-events: none;
+    border-radius: 5px;
+}
+
+#seasons-drivers-list li:hover::before,
+#seasons-constructors-list li:hover::before {
+    background-position: -100% 0;
+}
+
+#seasons-drivers-list li:hover,
+#seasons-constructors-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        -3px -3px 7px rgba(255, 255, 255, 1),
+        3px 3px 7px rgba(0, 0, 0, 0.2);
+}
+
+[id^="seasons-driver-name-"], 
+[id^="seasons-constructor-name-"] {
+    font-weight: bold;
+}
+
+[id^="seasons-driver-points-"], 
+[id^="seasons-constructor-points-"] {
+    color: #ffffff;
+    padding: 2px 8px;
+    font-weight: bold;
+}
+
+[id^="seasons-driver-team-"] {
+    color: rgba(255,255,255,0.9);
+}
+
+@media (max-width: 768px) {
+    #seasons-container {
+        flex-direction: column;
+    }
+    
+    #seasons-drivers, #seasons-constructors {
+        flex: 1;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* User search popup */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+#searchPopup {
+    width: 90%;
+    max-width: 500px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+}
+
+.popup-content {
+    position: relative;
+}
+
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.search-title {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+    padding: 5px;
+    line-height: 1;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-button:hover {
+    color: #333;
+}
+
+.user-result {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.user-result:last-child {
+    border-bottom: none;
+}
+
+.username-link {
+    color: #2196F3;
+    text-decoration: none;
+}
+
+.username-link:hover {
+    text-decoration: underline;
+}
